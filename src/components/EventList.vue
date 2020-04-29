@@ -231,7 +231,6 @@ const view = {
             this.eventCount = response.data.count;
             this.events = response.data.results;
             this.next = response.data.next;
-            console.log(this);
             // this.mungeEvents();
           });
       }
@@ -262,7 +261,6 @@ const view = {
 
 export default view;
 // eslint-disable-next-line
-console.log(view.data().events);
 </script>
 
 <style>
