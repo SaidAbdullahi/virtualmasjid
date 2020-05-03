@@ -1,18 +1,26 @@
 <template>
-  <select :data-placeholder="placeholder" :multiple="multiple" :disabled="disabled" id="taphouseSelect" class="chosen-select">
-    <option v-for="option in localOptions" v-bind:key="option[trackBy]" v-bind:value="option[trackBy]">
-      {{ option[label] }}
-    </option>
+  <select
+    id="taphouseSelect"
+    :data-placeholder="placeholder"
+    :multiple="multiple"
+    :disabled="disabled"
+    class="chosen-select"
+  >
+    <option
+      v-for="option in localOptions"
+      :key="option[trackBy]"
+      :value="option[trackBy]"
+    >{{ option[label] }}</option>
   </select>
 </template>
 
 <script>
 /* eslint-disable */
-import $ from 'jquery';
+import $ from 'jquery'
 
-window.$ = window.jQuery = $;
+window.$ = window.jQuery = $
 
-import chosen from 'chosen-js';
+import chosen from 'chosen-js'
 
 export default {
   props: {
@@ -67,60 +75,68 @@ export default {
   },
   computed: {
     localOptions() {
-      const vm = this;
-      const options = [];
+      const vm = this
+      const options = []
       if (this.allowAll) {
         options.push({
           [this.trackBy]: -1,
           [this.label]: 'All',
-        });
+        })
       }
 
       if (Array.isArray(this.options)) {
-        return options.concat(this.options);
+        return options.concat(this.options)
       }
 
-      Object.keys(this.options).forEach((key) => {
+      Object.keys(this.options).forEach(key => {
         options.push({
           [vm.trackBy]: key,
           [vm.label]: vm.options[key],
-        });
-      });
+        })
+      })
 
       return this.allowEmpty
         ? [{ [this.trackBy]: null, [this.label]: '' }].concat(options)
-        : options;
+        : options
     },
     localValue() {
-      const value = this.allowAll && this.value === null ? -1 : this.value;
-      this.$nextTick(function () {
-        $(this.$el).val(value).trigger('chosen:updated');
-      });
-      return value;
+      const value = this.allowAll && this.value === null ? -1 : this.value
+      this.$nextTick(function() {
+        $(this.$el)
+          .val(value)
+          .trigger('chosen:updated')
+      })
+      return value
     },
   },
   watch: {
     localValue() {},
     localOptions() {
-      this.$nextTick(function () {
-        const value = this.allowAll && this.value === null ? '-1' : this.value;
-        $(this.$el).val(value).trigger('chosen:updated');
-      });
+      this.$nextTick(function() {
+        const value = this.allowAll && this.value === null ? '-1' : this.value
+        $(this.$el)
+          .val(value)
+          .trigger('chosen:updated')
+      })
     },
   },
   mounted() {
-    $(this.$el).chosen()
-      .change(($event) => {
-        const value = $($event.target).val();
+    $(this.$el)
+      .chosen()
+      .change($event => {
+        const value = $($event.target).val()
         if (typeof this.onValueReturn[value] !== 'undefined') {
-          return this.$emit('input', this.onValueReturn[value]);
+          return this.$emit('input', this.onValueReturn[value])
         }
-        if (this.allowAll && ($($event.target).val() === '-1' || $($event.target).val() === -1)) {
-          return this.$emit('input', null);
+        if (
+          this.allowAll &&
+          ($($event.target).val() === '-1' || $($event.target).val() === -1)
+        ) {
+          return this.$emit('input', null)
         }
-        this.$emit('input', $($event.target).val());
-        return 0;
-      });
+        this.$emit('input', $($event.target).val())
+        return 0
+      })
   },
-};
+}
 </script>

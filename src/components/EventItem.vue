@@ -11,58 +11,50 @@
         </div>
         <div class="event-info">
           <a class="event-link" @click="visible = !visible">
-            <h2 class="event-name">{{ event.name }}</h2>
-            <div class="event-speaker" v-if="event.frequency == 'None'">
-              {{ event.startDate }} at {{ event.eventTime }}
-            </div>
-            <div class="event-speaker" v-else>
-              {{ event.frequency }} from {{ event.eventTime }}
-            </div>
+            <h2 class="event-name">{{ event.title }}</h2>
+            <div
+              v-if="event.frequency == 'None'"
+              class="event-speaker"
+            >{{ event.startDate }} at {{ event.eventTime }}</div>
+            <div v-else class="event-speaker">{{ event.frequency }} from {{ event.eventTime }}</div>
           </a>
           <div class="event-speaker">{{ event.speaker }}</div>
           <div
-            class="event-style srm"
             v-if="event.is_live == true"
-            v-bind:style="{ backgroundColor: '#FF0000' }"
-          >
-            Live
-          </div>
-          <div
             class="event-style srm"
-            v-else
-            v-bind:style="{ backgroundColor: '#FFFF00' }"
-          >
-            Recorded
-          </div>
+            :style="{ backgroundColor: '#28a745' }"
+          >Live</div>
+          <div v-else class="event-style srm" :style="{ backgroundColor: '#FFFF00' }">Recorded</div>
           <div class="event-style srm">{{ event.language }}</div>
         </div>
       </div>
-      <b-collapse
-        class="event-details-container"
-        id="eventDetails"
-        v-model="visible"
-      >
+      <b-collapse id="eventDetails" v-model="visible" class="event-details-container">
         <div class="event-details">
           <div class="find-it">
-            <h3 class="find-it-header">Find the event here:</h3>
+            <h3 class="find-it-header">Find Details here:</h3>
             <ul class="find-it-list">
               <li>
-                <a target="_blank" :href="event.stream_link">{{
-                  event.stream_medium
-                }}</a>
+                <small>Link -</small>
+                <a target="_blank" :href="event.stream_link">{{ event.stream_medium }}</a>
+              </li>
+              <li>
+                <small>Location -</small>
+                {{ event.venue.name }},
+                {{ event.venue.city }}, {{ event.venue.country }}
               </li>
             </ul>
           </div>
         </div>
       </b-collapse>
     </template>
-    <template v-else-if="event === false"> </template>
+    <template v-else-if="event === false" />
   </li>
 </template>
 
 <script>
 export default {
-  name: 'event-item',
+  name: 'EventItem',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['event'],
   data() {
     return {
