@@ -24,26 +24,39 @@
           <nav class="navbar navbar-expand-md navbar">
             <router-link class="navbar-brand navbar-logo" to="/">
               <span class="particletext">
-                <img class="brand-logo" src="/static/svg/masjid-logo.svg" alt="Virtual Masjid" />
+                <img
+                  class="brand-logo"
+                  src="/static/svg/masjid-logo.svg"
+                  alt="Virtual Masjid"
+                />
               </span>
             </router-link>
           </nav>
 
-          <p
-            class="text-intro lead text-center"
-          >Find talks and classes on different subjects from different mosques</p>
-          <div id="search" class="search-container" :class="{active: search_active}">
-            <!--         <div class="search-icon-container">
-          <div class="search-icon dark small">
-            <div class="mug-top"></div>
-            <div class="mug-sides"></div>
-            <div class="mug-bottom"></div>
-            <div class="mug-handle">
-              <div class="mug-handle-inner"></div>
+          <p class="text-intro lead text-center">
+            Find talks and classes on different subjects from different mosques
+          </p>
+          <div
+            id="search"
+            class="search-container"
+            :class="{ active: search_active }"
+          >
+            <div class="search-icon-container">
+              <font-awesome-icon
+                :icon="['fas', 'search']"
+                :style="{ color: 'grey' }"
+                size="2x"
+              />
+
+              <!-- <div class="search-icon dark small">
+                <div class="mug-top" />
+                <div class="mug-sides" />
+                <div class="mug-bottom" />
+                <div class="mug-handle">
+                  <div class="mug-handle-inner" />
+                </div>
+              </div> -->
             </div>
-          </div>
-        </div>
-            -->
             <input
               v-model="query"
               type="text"
@@ -53,7 +66,11 @@
               @focus="search_active = true"
               @keyup.enter="onQueryEnter"
             />
-            <button class="btn btn-clearsearch" type="button" @click="onSearchClose">
+            <button
+              class="btn btn-clearsearch"
+              type="button"
+              @click="onSearchClose"
+            >
               <img src="/static/svg/close.svg" alt="close" />
             </button>
           </div>
@@ -82,7 +99,9 @@
                   href="#"
                   data-toggle="modal"
                   data-target="#venueModal"
-                >{{ selected_venue.name }}</a>
+                >
+                  {{ selected_venue.name }}
+                </a>
               </span>
             </h2>
             <div class="sort">
@@ -93,16 +112,26 @@
                   <li v-for="(s, i) in sort" :key="i">
                     <a
                       @click="onSortChange(s)"
-                      :class="{selected: s.name === selected_sort.name }"
-                    >{{ s.name }}</a>
+                      :class="{ selected: s.name === selected_sort.name }"
+                    >
+                      {{ s.name }}
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="container-list">
-            <ul id="event-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy">
-              <event-item v-for="event in events" :key="event.id" :event="event" />
+            <ul
+              id="event-list"
+              v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="busy"
+            >
+              <event-item
+                v-for="event in events"
+                :key="event.id"
+                :event="event"
+              />
             </ul>
           </div>
         </div>

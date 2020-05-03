@@ -14,6 +14,34 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './App'
 import createRouter from './router'
 
+// fontawesome https://www.npmjs.com/package/@fortawesome/vue-fontawesome
+import {
+  library
+} from '@fortawesome/fontawesome-svg-core'
+import {
+  faPodcast,
+  faRssSquare,
+  faBroadcastTower,
+  faTimes,
+  faCheck,
+  faLanguage,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faYoutube
+} from '@fortawesome/free-brands-svg-icons'
+import {
+  FontAwesomeIcon,
+  FontAwesomeLayers,
+  FontAwesomeLayersText,
+} from '@fortawesome/vue-fontawesome'
+
+library.add(faPodcast, faRssSquare, faBroadcastTower, faYoutube, faTimes, faCheck, faLanguage, faSearch)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-layers', FontAwesomeLayers)
+Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+
 // eslint-disable-next-line no-undef
 window.$ = require('jquery')
 // eslint-disable-next-line no-undef
