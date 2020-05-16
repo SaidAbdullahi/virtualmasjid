@@ -12,29 +12,25 @@
         <div class="event-info">
           <a class="event-link" @click="visible = !visible">
             <h2 class="event-name">{{ event.title }}</h2>
-            <div v-if="event.frequency == 'None'" class="event-speaker">
-              {{ event.startDate }} at {{ event.eventTime }}
-            </div>
+            <div
+              v-if="event.frequency == 'None'"
+              class="event-speaker"
+            >{{ event.startDate }} at {{ event.eventTime }}</div>
             <div v-else class="event-speaker">
               {{ event.frequency === 'Once' ? '' : `${event.frequency} from` }}
-              {{ event.startDate }} at
-              {{ event.eventTime }}
+              <small>
+                <strong>{{ event.startDate }}</strong>
+                at {{ event.eventTime }}
+                {{' '}}{{event.timezone}}
+              </small>
             </div>
           </a>
           <div class="event-speaker">{{ event.speaker }}</div>
           <div v-if="event.is_live == true" class="event-style srm">
-            <font-awesome-icon
-              :icon="['fas', 'broadcast-tower']"
-              :style="{ color: '#28a745' }"
-            />
-            Live Now
+            <font-awesome-icon :icon="['fas', 'broadcast-tower']" :style="{ color: '#28a745' }" />Live Now
           </div>
           <div v-else class="event-style srm">
-            <font-awesome-icon
-              :icon="['fas', 'broadcast-tower']"
-              :style="{ color: 'grey' }"
-            />
-            Recorded
+            <font-awesome-icon :icon="['fas', 'broadcast-tower']" :style="{ color: 'grey' }" />Recorded
           </div>
           <div class="event-style srm">
             <font-awesome-icon
@@ -57,14 +53,10 @@
               :style="{ color: 'red ' }"
               size="1x"
             />
-          </div> -->
+          </div>-->
         </div>
       </div>
-      <b-collapse
-        id="eventDetails"
-        v-model="visible"
-        class="event-details-container"
-      >
+      <b-collapse id="eventDetails" v-model="visible" class="event-details-container">
         <div class="event-details">
           <div class="find-it">
             <h3 class="find-it-header">Watch or listen on:</h3>
